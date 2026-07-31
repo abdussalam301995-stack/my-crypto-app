@@ -677,7 +677,7 @@ function AppContent() {
 function App() {
   return (
     <TonConnectUIProvider
-      manifestUrl="https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json"
+      manifestUrl="https://my-crypto-app-uz50.onrender.com/tonconnect-manifest.json"
       actionsConfiguration={{
         twaReturnUrl: 'https://t.me/MaiEarnAds_bot'
       }}

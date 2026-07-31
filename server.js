@@ -18,7 +18,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
 const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
 // Base URL configuration (from environment variables or default fallback)
-const BASE_URL = process.env.BASE_URL || 'https://my-crypto-app-x6z7.onrender.com';
+const BASE_URL = process.env.BASE_URL || 'https://my-crypto-app-uz50.onrender.com';
 
 // Target Telegram Channels & Groups for Task Verification
 const CHANNELS = {
