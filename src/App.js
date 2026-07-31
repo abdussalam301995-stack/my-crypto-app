@@ -43,7 +43,7 @@ const NavIcon = ({ id, isActive }) => {
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ filter, transition: 'all 0.3s ease' }}>
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
           <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M23 21v-2a4 4 0 0 1 0 7.75" />
           <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
       );
@@ -68,8 +68,8 @@ function AppContent() {
   const [isCoinClicked, setIsCoinClicked] = useState(false);
 
   // Page View state for Boost Sub-page
-  const [currentView, setCurrentView] = useState('main'); 
-  const [selectedLevel, setSelectedLevel] = useState(null); 
+  const [currentView, setCurrentView] = useState('main');
+  const [selectedLevel, setSelectedLevel] = useState(null);
 
   // TON Address Custom Hook
   const userFriendlyAddress = useTonAddress();
@@ -77,7 +77,7 @@ function AppContent() {
   // Balance Persistence
   const [balance, setBalance] = useState(() => {
     const saved = localStorage.getItem('mai_balance');
-    return saved ? parseFloat(saved) : 10.0000;
+    return saved ? parseFloat(saved) : 10.0;
   });
 
   // Persistent Claim Timer
@@ -203,10 +203,14 @@ function AppContent() {
 
       ctx.save();
       ctx.globalCompositeOperation = 'screen';
-      
+
       const cyanGlow = ctx.createRadialGradient(
-        canvas.width * 0.3, canvas.height * 0.2, 10,
-        canvas.width * 0.3, canvas.height * 0.2, canvas.width * 0.6
+        canvas.width * 0.3,
+        canvas.height * 0.2,
+        10,
+        canvas.width * 0.3,
+        canvas.height * 0.2,
+        canvas.width * 0.6
       );
       cyanGlow.addColorStop(0, `rgba(0, 212, 255, ${0.15 + Math.sin(pulseTime) * 0.05})`);
       cyanGlow.addColorStop(1, 'rgba(0,0,0,0)');
@@ -259,7 +263,7 @@ function AppContent() {
   useEffect(() => {
     if (loading) return;
     const miningInterval = setInterval(() => {
-      setBalance((prev) => prev + (5 / 86400));
+      setBalance((prev) => prev + 5 / 86400);
     }, 1000);
     return () => clearInterval(miningInterval);
   }, [loading]);
@@ -305,29 +309,28 @@ function AppContent() {
   }
 
   return (
-    <div style={{ 
-      backgroundImage: "url('/space-bg.jpg')", 
-      backgroundSize: 'cover', 
-      backgroundPosition: 'center', 
-      backgroundAttachment: 'fixed', 
-      color: '#ffffff', 
-      minHeight: '100vh', 
-      paddingBottom: '90px', 
-      fontFamily: "'Inter', system-ui, -apple-system, sans-serif", 
+    <div style={{
+      backgroundImage: "url('/space-bg.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      color: '#ffffff',
+      minHeight: '100vh',
+      paddingBottom: '90px',
+      fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
       position: 'relative',
       WebkitTapHighlightColor: 'transparent'
     }}>
       <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }} />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
-        
         {/* Header */}
         <div style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(0,240,255,0.2)', backgroundColor: 'rgba(5, 10, 25, 0.4)', backdropFilter: 'blur(10px)', width: '100%', boxSizing: 'border-box' }}>
           <div style={{ textAlign: 'left' }}>
             <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#ffffff' }}>User</div>
             <div style={{ fontSize: '12px', color: '#00f0ff', fontWeight: '500' }}>ID: {userId || '7680002112'}</div>
           </div>
-          
+
           <div style={{ backgroundColor: 'rgba(10, 20, 45, 0.7)', padding: '6px 14px 6px 8px', borderRadius: '25px', border: '1px solid rgba(0, 240, 255, 0.6)', display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 0 20px rgba(0,240,255,0.3)' }}>
             <div style={{ width: '26px', height: '26px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #00f0ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src="/mai-coin.jpg" alt="Coin" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -342,18 +345,18 @@ function AppContent() {
             <div style={{ color: '#00f0ff', fontSize: '13px', fontWeight: 'bold', letterSpacing: '2px', marginBottom: '15px', textShadow: '0 0 12px rgba(0,240,255,0.8)' }}>
               24H SPEED: 5.0000 MAI
             </div>
-            
-            <div 
+
+            <div
               onClick={handleCoinClick}
-              style={{ 
-                width: '240px', 
-                height: '240px', 
-                borderRadius: '50%', 
-                margin: '15px auto 20px auto', 
+              style={{
+                width: '240px',
+                height: '240px',
+                borderRadius: '50%',
+                margin: '15px auto 20px auto',
                 padding: '6px',
                 background: 'linear-gradient(145deg, #00f0ff, #e000ff)',
-                boxShadow: isCoinClicked 
-                  ? '0 0 80px rgba(255, 153, 0, 1), inset 0 0 25px rgba(255, 255, 255, 0.9)' 
+                boxShadow: isCoinClicked
+                  ? '0 0 80px rgba(255, 153, 0, 1), inset 0 0 25px rgba(255, 255, 255, 0.9)'
                   : '0 0 60px rgba(0, 240, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.6)',
                 display: 'flex',
                 alignItems: 'center',
@@ -375,9 +378,9 @@ function AppContent() {
 
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', width: '95%', margin: '0 auto', alignItems: 'stretch' }}>
               {canClaim ? (
-                <button 
-                  onClick={handleClaimBonus} 
-                  style={{ 
+                <button
+                  onClick={handleClaimBonus}
+                  style={{
                     flex: 1, padding: '16px 8px', background: 'linear-gradient(135deg, #00FF66, #009933)', color: '#000', border: 'none', borderRadius: '16px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0, 255, 102, 0.6)', outline: 'none'
                   }}
                 >
@@ -390,28 +393,27 @@ function AppContent() {
                 </div>
               )}
 
-              <button 
+              <button
                 onClick={() => setCurrentView('boost')}
-                style={{ 
+                style={{
                   flex: 1,
-                  padding: '14px 10px', 
-                  background: 'linear-gradient(135deg, #ff8800 0%, #ff4400 100%)', 
-                  color: '#ffffff', 
-                  border: 'none', 
-                  borderRadius: '16px', 
-                  fontWeight: '900', 
+                  padding: '14px 10px',
+                  background: 'linear-gradient(135deg, #ff8800 0%, #ff4400 100%)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '16px',
+                  fontWeight: '900',
                   fontSize: '16px',
                   letterSpacing: '1.5px',
                   cursor: 'pointer',
                   boxShadow: '0 4px 20px rgba(255, 102, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5)',
                   display: 'flex',
                   alignItems: 'center',
-                  justify: 'center',
+                  justifyContent: 'center',
                   gap: '8px',
                   textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)'
                 }}
               >
-                <span style={{ fontSize: '18px' }}>🚀</span>
                 <span>BOOST</span>
               </button>
             </div>
@@ -422,13 +424,13 @@ function AppContent() {
         {currentView === 'boost' && (
           <div style={{ padding: '24px 16px', maxWidth: '480px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-              <button 
+              <button
                 onClick={() => setCurrentView('main')}
                 style={{ background: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)', color: '#fff', borderRadius: '12px', padding: '8px 14px', cursor: 'pointer', fontWeight: 'bold' }}
               >
                 ← Back
               </button>
-              <h2 style={{ flex: 1, textAlign: 'center', margin: 0, color: '#ff9900', textShadow: '0 0 10px rgba(255,153,0,0.6)', marginRight: '50px' }}>🚀 Speed Boost</h2>
+              <h2 style={{ flex: 1, textAlign: 'center', margin: 0, color: '#ff9900', textShadow: '0 0 10px rgba(255,153,0,0.6)', marginRight: '50px' }}>Speed Boost</h2>
             </div>
 
             <p style={{ color: '#94a3b8', fontSize: '14px', textAlign: 'center', marginBottom: '24px' }}>
@@ -437,15 +439,15 @@ function AppContent() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {BOOST_LEVELS.map((item) => (
-                <div 
-                  key={item.level} 
-                  style={{ 
-                    backgroundColor: 'rgba(10, 20, 40, 0.75)', 
-                    border: '1px solid rgba(255, 153, 0, 0.3)', 
-                    borderRadius: '16px', 
-                    padding: '16px', 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
+                <div
+                  key={item.level}
+                  style={{
+                    backgroundColor: 'rgba(10, 20, 40, 0.75)',
+                    border: '1px solid rgba(255, 153, 0, 0.3)',
+                    borderRadius: '16px',
+                    padding: '16px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
                     alignItems: 'center',
                     backdropFilter: 'blur(10px)'
                   }}
@@ -454,15 +456,15 @@ function AppContent() {
                     <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#ffffff' }}>Level {item.level}</div>
                     <div style={{ fontSize: '13px', color: '#00f0ff', marginTop: '4px' }}>{item.speed}</div>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setSelectedLevel(item)}
-                    style={{ 
-                      background: 'linear-gradient(135deg, #ff8800, #ff4400)', 
-                      border: 'none', 
-                      color: '#fff', 
-                      fontWeight: 'bold', 
-                      padding: '10px 16px', 
-                      borderRadius: '12px', 
+                    style={{
+                      background: 'linear-gradient(135deg, #ff8800, #ff4400)',
+                      border: 'none',
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      padding: '10px 16px',
+                      borderRadius: '12px',
                       cursor: 'pointer',
                       boxShadow: '0 0 12px rgba(255, 102, 0, 0.4)'
                     }}
@@ -484,8 +486,8 @@ function AppContent() {
                   <div style={{ margin: '20px 0', display: 'flex', justifyContent: 'center' }}>
                     <TonConnectButton />
                   </div>
-                  <button 
-                    onClick={() => setSelectedLevel(null)} 
+                  <button
+                    onClick={() => setSelectedLevel(null)}
                     style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#94a3b8', padding: '8px 16px', borderRadius: '10px', cursor: 'pointer', marginTop: '8px' }}
                   >
                     Cancel
@@ -511,17 +513,17 @@ function AppContent() {
                       </div>
                       <div style={{ color: '#00FF66', fontSize: '12px', marginTop: '2px' }}>+2.0000 MAI</div>
                     </div>
-                    <button 
+                    <button
                       disabled={isDone}
                       onClick={() => handleTaskClick(key, link)}
-                      style={{ 
-                        background: isDone ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg, #00f0ff, #0088ff)', 
-                        color: isDone ? '#64748b' : '#000', 
-                        border: 'none', 
-                        padding: '10px 16px', 
-                        borderRadius: '12px', 
-                        fontWeight: 'bold', 
-                        cursor: isDone ? 'default' : 'pointer' 
+                      style={{
+                        background: isDone ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg, #00f0ff, #0088ff)',
+                        color: isDone ? '#64748b' : '#000',
+                        border: 'none',
+                        padding: '10px 16px',
+                        borderRadius: '12px',
+                        fontWeight: 'bold',
+                        cursor: isDone ? 'default' : 'pointer'
                       }}
                     >
                       {isDone ? 'Completed' : 'Join (+2 MAI)'}
@@ -546,7 +548,7 @@ function AppContent() {
                 https://t.me/MAI_Bot?start={userId || '7680002112'}
               </div>
             </div>
-            <button 
+            <button
               onClick={() => navigator.clipboard?.writeText(`https://t.me/MAI_Bot?start=${userId || '7680002112'}`)}
               style={{ background: 'linear-gradient(135deg, #00f0ff, #0088ff)', color: '#000', border: 'none', padding: '14px 28px', borderRadius: '16px', fontWeight: 'bold', cursor: 'pointer', width: '100%' }}
             >
@@ -559,7 +561,7 @@ function AppContent() {
         {currentView === 'main' && activeTab === 'profile' && (
           <div style={{ padding: '24px 16px', maxWidth: '480px', margin: '0 auto', textAlign: 'center' }}>
             <h2 style={{ color: '#00f0ff', margin: '0 0 20px 0' }}>User Profile</h2>
-            
+
             <div style={{ backgroundColor: 'rgba(10, 20, 45, 0.75)', border: '1px solid rgba(0, 240, 255, 0.3)', borderRadius: '16px', padding: '20px', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
               <div>
                 <div style={{ color: '#64748b', fontSize: '12px' }}>TELEGRAM ID</div>
@@ -581,28 +583,27 @@ function AppContent() {
             </div>
           </div>
         )}
-
       </div>
 
-      {/* 🚀 PERFECTLY CENTERED GLOWING NAVIGATION BAR */}
-      <div style={{ 
-        position: 'fixed', 
-        bottom: '16px', 
+      {/* PERFECTLY CENTERED GLOWING NAVIGATION BAR */}
+      <div style={{
+        position: 'fixed',
+        bottom: '16px',
         left: '50%',
         transform: 'translateX(-50%)',
         width: 'calc(100% - 32px)',
         maxWidth: '420px',
         boxSizing: 'border-box',
-        backgroundColor: 'rgba(8, 15, 30, 0.88)', 
-        backdropFilter: 'blur(18px)', 
-        display: 'flex', 
-        justifyContent: 'space-around', 
+        backgroundColor: 'rgba(8, 15, 30, 0.88)',
+        backdropFilter: 'blur(18px)',
+        display: 'flex',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        padding: '8px 4px', 
-        borderRadius: '24px', 
-        border: '1px solid rgba(255, 153, 0, 0.25)', 
+        padding: '8px 4px',
+        borderRadius: '24px',
+        border: '1px solid rgba(255, 153, 0, 0.25)',
         boxShadow: '0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 153, 0, 0.12)',
-        zIndex: 1000 
+        zIndex: 1000
       }}>
         {[
           { id: 'home', label: 'Home' },
@@ -612,23 +613,23 @@ function AppContent() {
         ].map((tab) => {
           const isActive = activeTab === tab.id && currentView === 'main';
           return (
-            <button 
-              key={tab.id} 
+            <button
+              key={tab.id}
               onClick={() => {
                 setActiveTab(tab.id);
                 setCurrentView('main');
-              }} 
-              style={{ 
-                background: isActive ? 'rgba(255, 153, 0, 0.15)' : 'transparent', 
-                border: isActive ? '1px solid rgba(255, 153, 0, 0.5)' : '1px solid transparent', 
+              }}
+              style={{
+                background: isActive ? 'rgba(255, 153, 0, 0.15)' : 'transparent',
+                border: isActive ? '1px solid rgba(255, 153, 0, 0.5)' : '1px solid transparent',
                 borderRadius: '16px',
                 padding: '8px 0',
-                color: isActive ? '#ff9900' : '#80a0c0', 
-                cursor: 'pointer', 
-                display: 'flex', 
-                flexDirection: 'column', 
+                color: isActive ? '#ff9900' : '#80a0c0',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
-                justify: 'center',
+                justifyContent: 'center',
                 gap: '4px',
                 flex: 1,
                 boxSizing: 'border-box',
@@ -641,8 +642,8 @@ function AppContent() {
               }}
             >
               <NavIcon id={tab.id} isActive={isActive} />
-              <span style={{ 
-                fontSize: '11px', 
+              <span style={{
+                fontSize: '11px',
                 fontWeight: isActive ? '800' : '500',
                 letterSpacing: '0.5px',
                 textShadow: isActive ? '0 0 10px rgba(255, 153, 0, 0.8)' : 'none'
@@ -653,14 +654,27 @@ function AppContent() {
           );
         })}
       </div>
-
     </div>
   );
 }
 
+// Fixed TON Connect Provider using inline manifest URL to prevent fetch errors
 function App() {
+  const manifestData = {
+    url: typeof window !== 'undefined' ? window.location.origin : 'https://my-crypto-app-4hm8.onrender.com',
+    name: 'MAI Network Mini App',
+    iconUrl: 'https://my-crypto-app-4hm8.onrender.com/mai-coin.jpg'
+  };
+
+  const manifestUrl = `data:application/json,${encodeURIComponent(JSON.stringify(manifestData))}`;
+
   return (
-    <TonConnectUIProvider manifestUrl="https://my-crypto-app-4hm8.onrender.com/tonconnect-manifest.json">
+    <TonConnectUIProvider
+      manifestUrl={manifestUrl}
+      actionsConfiguration={{
+        twaReturnUrl: 'https://t.me/MAI_Bot'
+      }}
+    >
       <AppContent />
     </TonConnectUIProvider>
   );
