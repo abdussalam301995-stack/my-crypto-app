@@ -666,7 +666,7 @@ function App() {
     iconUrl: 'https://my-crypto-app-4hm8.onrender.com/mai-coin.jpg'
   };
 
-  const manifestUrl = `data:application/json,${encodeURIComponent(JSON.stringify(manifestData))}`;
+ const manifestUrl = 'https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json';
 
   return (
     <TonConnectUIProvider
