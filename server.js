@@ -5,13 +5,19 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+const path = require('path');
 
+// Middleware to serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Root route to serve index.html when opening the website
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve static assets (images, manifest, icons) from 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Telegram Bot Setup
 const BOT_TOKEN = process.env.BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
