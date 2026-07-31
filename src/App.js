@@ -659,8 +659,8 @@ function AppContent() {
 }
 
 function App() {
-  const manifestUrl = 'https://my-crypto-app-im6k.vercel.app/tonconnect-manifest.json';
-
+  const manifestUrl = 'https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json';
+  
   return (
     <TonConnectUIProvider 
       manifestUrl={manifestUrl}
