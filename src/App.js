@@ -64,8 +64,9 @@ function AppContent() {
   const [progress, setProgress] = useState(0);
   const [activeTab, setActiveTab] = useState('home');
 
-  // Coin Click Animation State
+  // Coin Click Animation & Copy States
   const [isCoinClicked, setIsCoinClicked] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Page View state for Boost Sub-page
   const [currentView, setCurrentView] = useState('main');
@@ -120,7 +121,6 @@ function AppContent() {
       setClaimTimer((prev) => {
         if (prev <= 1) {
           setCanClaim(true);
-          clearInterval(timerInterval);
           return 0;
         }
         return prev - 1;
@@ -287,6 +287,22 @@ function AppContent() {
     window.open(link, '_blank');
     setCompletedTasks((prev) => ({ ...prev, [taskKey]: true }));
     setBalance((prev) => prev + 2.0);
+  };
+
+  const handleCopyLink = () => {
+    const link = `https://t.me/MAI_Bot?start=${userId || '7680002112'}`;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link);
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = link;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const formatTime = (seconds) => {
@@ -549,10 +565,10 @@ function AppContent() {
               </div>
             </div>
             <button
-              onClick={() => navigator.clipboard?.writeText(`https://t.me/MAI_Bot?start=${userId || '7680002112'}`)}
-              style={{ background: 'linear-gradient(135deg, #00f0ff, #0088ff)', color: '#000', border: 'none', padding: '14px 28px', borderRadius: '16px', fontWeight: 'bold', cursor: 'pointer', width: '100%' }}
+              onClick={handleCopyLink}
+              style={{ background: copied ? 'linear-gradient(135deg, #00FF66, #009933)' : 'linear-gradient(135deg, #00f0ff, #0088ff)', color: '#000', border: 'none', padding: '14px 28px', borderRadius: '16px', fontWeight: 'bold', cursor: 'pointer', width: '100%', transition: 'all 0.2s ease' }}
             >
-              Copy Referral Link
+              {copied ? 'Copied to Clipboard!' : 'Copy Referral Link'}
             </button>
           </div>
         )}
@@ -597,7 +613,7 @@ function AppContent() {
         backgroundColor: 'rgba(8, 15, 30, 0.88)',
         backdropFilter: 'blur(18px)',
         display: 'flex',
-        justifyContent: 'space-around',
+        justify: 'space-around',
         alignItems: 'center',
         padding: '8px 4px',
         borderRadius: '24px',
@@ -660,7 +676,12 @@ function AppContent() {
 
 function App() {
   return (
-    <TonConnectUIProvider manifestUrl="https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json">
+    <TonConnectUIProvider
+      manifestUrl="https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json"
+      actionsConfiguration={{
+        twaReturnUrl: 'https://t.me/MaiEarnAds_bot'
+      }}
+    >
       <AppContent />
     </TonConnectUIProvider>
   );

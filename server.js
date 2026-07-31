@@ -1,6 +1,7 @@
 const express = require('express');
 const TelegramBot = require('node-telegram-bot-api');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -9,21 +10,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Telegram Bot Token Setup
+// Serve static assets (images, manifest, icons) from 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Telegram Bot Setup
 const BOT_TOKEN = process.env.BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
 const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
-// Target Telegram Channels & Bots for Tasks
+// Base URL configuration (from environment variables or default fallback)
+const BASE_URL = process.env.BASE_URL || 'https://my-crypto-app-x6z7.onrender.com';
+
+// Target Telegram Channels & Groups for Task Verification
 const CHANNELS = {
   newsChannel: '@MAI_News_Official',
   payoutChannel: '@MAI_Payout_Proof',
   communityChat: '@MAICommunityChat',
-  partnerChannel1: '@Partner_Channel_Username' // Example Partner Channel
+  partnerChannel1: '@Partner_Channel_Username'
 };
 
-// Home Route
+// ------------------- ROUTES ------------------- //
+
+// Root Health Check Route
 app.get('/', (req, res) => {
-  res.send('Server is running smoothly!');
+  res.status(200).send('Server is running smoothly!');
 });
 
 // TON Connect Manifest Endpoint
@@ -33,15 +42,15 @@ app.get('/tonconnect-manifest.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   res.json({
-    url: 'https://my-crypto-app-x6z7.onrender.com',
+    url: BASE_URL,
     name: 'MAI Network',
-    iconUrl: 'https://ton.org/download/ton_symbol.png',
-    termsOfDeliveryUrl: 'https://my-crypto-app-x6z7.onrender.com',
-    privacyPolicyUrl: 'https://my-crypto-app-x6z7.onrender.com'
+    iconUrl: `${BASE_URL}/mai-coin.jpg`,
+    termsOfDeliveryUrl: BASE_URL,
+    privacyPolicyUrl: BASE_URL
   });
 });
 
-// Verify Membership API (Channels)
+// Verify Membership API Endpoint
 app.post('/api/verify-membership', async (req, res) => {
   const { userId, taskKey } = req.body;
 
@@ -49,7 +58,7 @@ app.post('/api/verify-membership', async (req, res) => {
     return res.status(400).json({
       success: false,
       isJoined: false,
-      message: 'userId and taskKey required'
+      message: 'Both userId and taskKey are required.'
     });
   }
 
@@ -59,50 +68,53 @@ app.post('/api/verify-membership', async (req, res) => {
     return res.status(400).json({
       success: false,
       isJoined: false,
-      message: 'Invalid taskKey'
+      message: 'Invalid taskKey provided.'
     });
   }
 
   try {
     const member = await bot.getChatMember(channelUsername, userId);
-    const isJoined = ['creator', 'administrator', 'member'].includes(member.status);
+    const validStatuses = ['creator', 'administrator', 'member'];
+    const isJoined = validStatuses.includes(member.status);
 
-    return res.json({
+    return res.status(200).json({
       success: true,
-      isJoined: isJoined,
-      message: isJoined ? 'User is a channel member' : 'User is not a channel member'
+      isJoined,
+      message: isJoined ? 'User is a channel member.' : 'User is not a channel member.'
     });
   } catch (error) {
-    console.error(`Error verifying ${channelUsername}:`, error.message);
-    return res.json({
+    console.error(`[Membership Check Error] Channel: ${channelUsername} | User: ${userId} | Error:`, error.message);
+    
+    return res.status(500).json({
       success: false,
       isJoined: false,
-      message: 'Verification failed. Ensure bot is an Admin in the channel.'
+      message: 'Verification failed. Please make sure the bot is an Admin in the target channel.'
     });
   }
 });
 
-// Verify Ad Completion Endpoint
+// Verify Ad Completion API Endpoint
 app.post('/api/verify-ad', (req, res) => {
   const { watchedDuration, hasClickedOpen } = req.body;
 
-  // Must watch at least 10 seconds AND click Open Now
+  // Verification Criteria: minimum 10 seconds duration and click interaction
   if (watchedDuration >= 10 && hasClickedOpen) {
-    return res.json({
+    return res.status(200).json({
       success: true,
       reward: 2.0,
-      message: 'Ad verified successfully'
-    });
-  } else {
-    return res.json({
-      success: false,
-      reward: 0,
-      message: 'Ad criteria not met'
+      message: 'Ad verified successfully.'
     });
   }
+
+  return res.status(400).json({
+    success: false,
+    reward: 0,
+    message: 'Ad criteria not met. Must watch for at least 10 seconds and click open.'
+  });
 });
 
+// Server Initialization
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server listening on port ${PORT}`);
 });
