@@ -1,7 +1,7 @@
 {
-  "url": "https://my-crypto-app-x6z7.onrender.com",
-  "name": "MAI Network Mini App",
-  "iconUrl": "https://raw.githubusercontent.com/ton-blockchain/token-logos/main/ton.png",
-  "termsOfServiceUrl": "https://my-crypto-app-x6z7.onrender.com",
-  "privacyPolicyUrl": "https://my-crypto-app-x6z7.onrender.com"
+  "url": "https://my-crypto-app-im6k.vercel.app",
+  "name": "MAI Earning Bot",
+  "iconUrl": "https://my-crypto-app-im6k.vercel.app/mai-coin.jpg",
+  "termsOfDeliveryUrl": "https://my-crypto-app-im6k.vercel.app",
+  "privacyPolicyUrl": "https://my-crypto-app-im6k.vercel.app"
 }

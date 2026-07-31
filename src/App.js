@@ -658,15 +658,14 @@ function AppContent() {
   );
 }
 
-// Fixed TON Connect Provider using inline manifest URL to prevent fetch errors
 function App() {
-  const manifestUrl = 'https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json?v=1.0.1';
+  const manifestUrl = 'https://my-crypto-app-im6k.vercel.app/tonconnect-manifest.json';
 
   return (
     <TonConnectUIProvider 
       manifestUrl={manifestUrl}
       actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/MAI_Bot'
+        twaReturnUrl: 'https://t.me/MaiEarnAds_bot'
       }}
     >
       <AppContent />
