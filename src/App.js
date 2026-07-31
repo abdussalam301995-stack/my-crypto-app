@@ -660,7 +660,7 @@ function AppContent() {
 
 // Fixed TON Connect Provider using inline manifest URL to prevent fetch errors
 function App() {
-  const manifestUrl = 'https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json';
+  const manifestUrl = 'https://my-crypto-app-x6z7.onrender.com/tonconnect-manifest.json?v=1.0.1';
 
   return (
     <TonConnectUIProvider 

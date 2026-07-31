@@ -14,18 +14,18 @@ app.get('/', (req, res) => {
     res.send('Server is running smoothly!');
 });
 
-// TON Connect Manifest Endpoint
+// TON Connect Manifest Endpoint (FIXED)
 app.get('/tonconnect-manifest.json', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Content-Type', 'application/json');
 
     res.json({
-        "url": "https://my-crypto-app-4hm8.onrender.com",
-        "name": "MAI Network",
-        "iconUrl": "https://ton.org/download/ton_symbol.png",
-        "termsOfDeliveryUrl": "https://my-crypto-app-4hm8.onrender.com",
-        "privacyPolicyUrl": "https://my-crypto-app-4hm8.onrender.com"
+        "url": "https://my-crypto-app-x6z7.onrender.com",
+        "name": "MAI Network Mini App",
+        "iconUrl": "https://raw.githubusercontent.com/ton-blockchain/token-logos/main/ton.png",
+        "termsOfServiceUrl": "https://my-crypto-app-x6z7.onrender.com",
+        "privacyPolicyUrl": "https://my-crypto-app-x6z7.onrender.com"
     });
 });
 
@@ -65,10 +65,10 @@ app.post('/api/verify-membership', async (req, res) => {
             message: isJoined ? 'User is a channel member' : 'User is not a channel member'
         });
     } catch (error) {
-        console.error(`Error verifying ${channelUsername}:`, error.message);
+        console.error(Error verifying ${channelUsername}:, error.message);
         return res.json({
             success: false,
-            isJoined: false,
+            isJoined: isJoined,
             message: 'Verification failed. Ensure bot is an Admin.'
         });
     }
@@ -88,5 +88,5 @@ app.post('/api/verify-ad', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(Server running on port ${PORT});
 });
