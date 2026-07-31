@@ -21,11 +21,11 @@ app.get('/tonconnect-manifest.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   res.json({
-    url: 'https://my-crypto-app-x6z7.onrender.com',
+    url: 'https://my-crypto-app-im6k.vercel.app/',
     name: 'MAI Network Mini App',
     iconUrl: 'https://raw.githubusercontent.com/ton-blockchain/token-logos/main/ton.png',
-    termsOfServiceUrl: 'https://my-crypto-app-x6z7.onrender.com',
-    privacyPolicyUrl: 'https://my-crypto-app-x6z7.onrender.com',
+    termsOfServiceUrl: 'https://my-crypto-app-im6k.vercel.app/',
+    privacyPolicyUrl: 'https://my-crypto-app-im6k.vercel.app/',
   });
 });
 
