@@ -5,6 +5,7 @@ module.exports = {
     configure: {
       resolve: {
         fallback: {
+          vm: require.resolve('vm-browserify'),
           path: require.resolve('path-browserify'),
           os: require.resolve('os-browserify/browser'),
           crypto: require.resolve('crypto-browserify'),
