@@ -16,6 +16,8 @@ module.exports = {
           assert: require.resolve('assert'),
           url: require.resolve('url'),
           querystring: require.resolve('querystring-es3'),
+          buffer: require.resolve('buffer/'),
+          process: require.resolve('process/browser'),
           fs: false,
           net: false,
           tls: false,
