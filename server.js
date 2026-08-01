@@ -64,6 +64,7 @@ app.post('/api/verify-membership', async (req, res) => {
 
   const channelUsername = CHANNELS[taskKey];
 
+  
   if (!channelUsername) {
     return res.status(400).json({
       success: false,
@@ -76,6 +77,7 @@ app.post('/api/verify-membership', async (req, res) => {
     const member = await bot.getChatMember(channelUsername, userId);
     const validStatuses = ['creator', 'administrator', 'member'];
     const isJoined = validStatuses.includes(member.status);
+
 
     return res.status(200).json({
       success: true,
