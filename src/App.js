@@ -314,9 +314,9 @@ function AppContent() {
 
   if (loading) {
     return (
-      <div style={{ backgroundImage: "url('/space-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+      <div style={{ backgroundColor: '#050a19', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
         <div style={{ width: '120px', height: '120px', borderRadius: '50%', border: '2px solid #00f0ff', overflow: 'hidden', boxShadow: '0 0 35px rgba(0, 240, 255, 0.8)', marginBottom: '20px' }}>
-          <img src="/mai-coin.jpg" alt="MAI Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ width: '100%', height: '100%', backgroundColor: '#00f0ff' }} />
         </div>
         <h2 style={{ color: '#00f0ff', letterSpacing: '3px', margin: '0 0 10px 0', textShadow: '0 0 12px #00f0ff' }}>MAI NETWORK</h2>
         <p style={{ color: '#ffb3ec', fontSize: '14px', fontWeight: 'bold' }}>Loading Cosmic World... {progress}%</p>
@@ -326,10 +326,7 @@ function AppContent() {
 
   return (
     <div style={{
-      backgroundImage: "url('/space-bg.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
+      backgroundColor: '#050a19',
       color: '#ffffff',
       minHeight: '100vh',
       paddingBottom: '90px',
@@ -348,9 +345,7 @@ function AppContent() {
           </div>
 
           <div style={{ backgroundColor: 'rgba(10, 20, 45, 0.7)', padding: '6px 14px 6px 8px', borderRadius: '25px', border: '1px solid rgba(0, 240, 255, 0.6)', display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 0 20px rgba(0,240,255,0.3)' }}>
-            <div style={{ width: '26px', height: '26px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #00f0ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src="/mai-coin.jpg" alt="Coin" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+            <div style={{ width: '26px', height: '26px', borderRadius: '50%', backgroundColor: '#00f0ff' }} />
             <span style={{ fontWeight: 'bold', color: '#00f0ff', fontSize: '15px' }}>{balance.toFixed(4)}</span>
           </div>
         </div>
@@ -383,8 +378,8 @@ function AppContent() {
                 userSelect: 'none'
               }}
             >
-              <div style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', border: '3px solid #00f0ff', pointerEvents: 'none' }}>
-                <img src="/mai-coin.jpg" alt="MAI Coin" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ width: '100%', height: '100%', borderRadius: '50%', backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00f0ff', fontWeight: 'bold', fontSize: '20px' }}>
+                MAI
               </div>
             </div>
 
@@ -491,7 +486,6 @@ function AppContent() {
               ))}
             </div>
 
-            {/* Level Purchase Confirmation Modal */}
             {selectedLevel && (
               <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2000, padding: '20px' }}>
                 <div style={{ backgroundColor: '#0f172a', border: '1px solid #ff9900', borderRadius: '20px', padding: '24px', width: '100%', maxWidth: '340px', textAlign: 'center', boxShadow: '0 0 30px rgba(255, 153, 0, 0.3)' }}>
@@ -601,7 +595,7 @@ function AppContent() {
         )}
       </div>
 
-      {/* PERFECTLY CENTERED GLOWING NAVIGATION BAR */}
+      {/* NAVIGATION BAR */}
       <div style={{
         position: 'fixed',
         bottom: '16px',
@@ -613,7 +607,7 @@ function AppContent() {
         backgroundColor: 'rgba(8, 15, 30, 0.88)',
         backdropFilter: 'blur(18px)',
         display: 'flex',
-        justify: 'space-around',
+        justifySpace: 'space-around',
         alignItems: 'center',
         padding: '8px 4px',
         borderRadius: '24px',
