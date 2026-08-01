@@ -5,6 +5,7 @@ module.exports = {
     configure: {
       resolve: {
         fallback: {
+          util: require.resolve('util/'),
           vm: require.resolve('vm-browserify'),
           path: require.resolve('path-browserify'),
           os: require.resolve('os-browserify/browser'),
